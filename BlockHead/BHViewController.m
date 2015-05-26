@@ -11,6 +11,7 @@
 @interface BHViewController ()
 
 @property (nonatomic, copy) NSArray *(^stringArray)(NSString *);
+@property (nonatomic, copy) float (^acceptStringReturnFloat)(NSString *);
 @property (nonatomic, copy) void (^someBlock)(int);
 
 @end
@@ -22,8 +23,6 @@
     [super viewDidLoad];
 
     NSString *stringLiteral = @"string";
-
-    
     
     // Block as Local Variable no Return Type
     
@@ -44,7 +43,7 @@
     
     multiply(5, 4);
 
-
+    
     // Property set to a block literal
     
     self.stringArray = ^(NSString *string){
@@ -54,7 +53,7 @@
     NSArray *strings = self.stringArray(stringLiteral);
     if ([strings.firstObject isEqualToString:stringLiteral]) {
         NSLog(@"Success");
-    }
+    }`
     
     self.someBlock = ^(int value){
         NSLog(@"%d blocked", value);
@@ -70,18 +69,24 @@
     }];
     
     [self someMethodThatTakesABlock:^{
-        NSLog(@"Method without parameter called");
+        NSLog(@"Method without parameter called. This code will run when the code block is run");
     }];
-    
+
 }
 
 // Methods with blocks as the parameter
 
 - (void)someMethodThatTakesABlockWithParameter:(void (^)(int parameter))block {
+    
+    // Runs the block defined when the method is called with the value inside the parentheses
+    
     block(100);
 }
 
 - (void)someMethodThatTakesABlock:(void (^)())block {
+    
+    // Runs the block defined when the method is called
+    
     block();
 }
 
@@ -89,6 +94,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)someOtherMethodThatTakesABlock:(NSArray * (^)(NSArray *array))blockName{
+    
 }
 
 @end
