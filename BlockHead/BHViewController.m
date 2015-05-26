@@ -53,7 +53,7 @@
     NSArray *strings = self.stringArray(stringLiteral);
     if ([strings.firstObject isEqualToString:stringLiteral]) {
         NSLog(@"Success");
-    }`
+    }
     
     self.someBlock = ^(int value){
         NSLog(@"%d blocked", value);
